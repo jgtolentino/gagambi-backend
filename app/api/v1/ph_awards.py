@@ -15,6 +15,16 @@ from app.api import deps
 
 logger = logging.getLogger(__name__)
 
+# Initialize database on import
+try:
+    import sys
+    import os
+    sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))))
+    from init_ph_awards_db import init_database
+    init_database()
+except Exception as e:
+    logger.warning(f"Could not initialize PH Awards database: {e}")
+
 router = APIRouter()
 
 # Pydantic models
